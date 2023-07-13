@@ -1,0 +1,25 @@
+server {
+    listen 443 default_server ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name <actual host for which certificate was obtained>;
+
+    ssl_certificate /etc/nginx/ssl/live/$host/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/$host/privkey.pem;
+
+	location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location /health.html {
+    	root /var/www/
+    }
+
+	location / {
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://gv:5678/;
+        auth_basic off;
+    }
+}

@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name <actual host for which certificate was obtained>;
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location /health.html {
+        root /var/www;
+    }
+
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}

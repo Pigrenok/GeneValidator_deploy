@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+    certbot:
+        profiles:
+            - certbot
+        image: certbot/certbot:latest
+        volumes:
+            - challenge:/var/www/certbot/:rw
+            - sslcerts:/etc/letsencrypt/:rw
+            - ./certbot/:/scripts/:ro
+        environment:
+            - SSLHOST=${SSLHOST}
+            - LE_USER=${LE_USER}
+        entrypoint: /bin/sh /scripts/certbotRun.sh
+volumes:
+    challenge:
+    sslcerts:

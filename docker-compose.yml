@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+    gv:
+        build: .
+        image: genevalidator:latest
+        container_name: genevalidator
+        hostname: gv
+        restart: always
+        environment:
+            - NUMWORKERS=1
+        volumes:
+            - GV_test:/genevalidator/output
+            - BLASTDB:/genevalidator/blast_db
+    proxy:
+        build: ./nginx
+        container_name: gv-reverse-proxy
+        restart: always
+        ports:
+            - 8001:80
+            # - 443:443 # Uncomment for SSL local setup only
+        volumes:
+            - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+            # - challenge:/var/www/certbot:ro # Uncomment for local SSL setup only
+            # - sslcerts:/etc/nginx/ssl/:ro # Uncomment for local SSL setup only
+        links:
+            - gv
+        depends_on:
+            - gv
+volumes:
+    GV_test:
+    BLASTDB:
+    # challenge: # Uncomment for local SSL setup only
+    # sslcerts: # Uncomment for local SSL setup only

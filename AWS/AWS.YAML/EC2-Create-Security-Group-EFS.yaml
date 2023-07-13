@@ -1,0 +1,4 @@
+Description: 'Allow mounting of EFS shares from ECS'  # [REQUIRED] A description for the security group.
+GroupName: 'EFS-ECS-Mount-test' # [REQUIRED] The name of the security group.
+VpcId: '<your vpc ID>' # [EC2-VPC] The ID of the VPC.
+DryRun: false # Checks whether you have the required permissions for the action, without actually making the request, and provides an error response.

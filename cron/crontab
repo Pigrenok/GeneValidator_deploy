@@ -1,0 +1,2 @@
+# Need to change amin +5 (older than 5 minutes) to atime +5 (older than 5 days)
+0 3 * * * /root/cron.sh 2>&1
