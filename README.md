@@ -1,3 +1,7 @@
+# Origin
+
+This repository provides everything you need to get [GeneValidator App](https://wurmlab.com/tools/genevalidator/) (or [GitHub repo](https://github.com/wurmlab/genevalidator)) up and running either in Docker Compose stack (on your local computer or on on-premise or virtual/cloud server) or in AWS ECS environment (work in progress).
+
 # Running GeneValidatior in Docker locally/on-premises with HTTP only (without SSL)
 
 This method will provide simple way to run Genevalidator app locally.
