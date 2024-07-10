@@ -12,6 +12,10 @@ FIRSTDOMAIN=$(echo $SSLHOST | cut -d ',' -f1)
 
 certbot certonly --cert-name $FIRSTDOMAIN --webroot --webroot-path /var/www/certbot/ --non-interactive --agree-tos -m $LE_USER -d $SSLHOST #--dry-run
 
-if [ -n $CERTARN ]; then
-	cd /etc/letsencrypt/live/${FIRSTDOMAIN}/ && aws acm import-certificate --certificate-arn $CERTARN --certificate fileb://cert.pem --private-key fileb://privkey.pem --certificate-chain fileb://fullchain.pem
+if [ -n "$CERTARN" ]; then
+    if echo "$CERTARN" | grep -q "NEW"; then
+        cd /etc/letsencrypt/live/${FIRSTDOMAIN}/ && aws acm import-certificate --certificate fileb://cert.pem --private-key fileb://privkey.pem --certificate-chain fileb://fullchain.pem
+    else
+        cd /etc/letsencrypt/live/${FIRSTDOMAIN}/ && aws acm import-certificate --certificate-arn "$CERTARN" --certificate fileb://cert.pem --private-key fileb://privkey.pem --certificate-chain fileb://fullchain.pem
+    fi
 fi
