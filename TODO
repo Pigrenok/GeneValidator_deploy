@@ -1,1 +1,2 @@
 - Need fully describing AWS stack using all necessary YAML input files with corresponding commands in `aws_setup.sh`
+- Possibly better do it using OpenToFu.
